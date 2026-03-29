@@ -4,8 +4,16 @@
 
 **a. Initial design**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+Three core actions a user should be able to perform:
+1. **Add a pet** — Register a new pet with basic info (name, species, age) so the system knows who to schedule care for.
+2. **Schedule a task** — Create care tasks (walks, feedings, medications) with a time, duration, priority, and optional recurrence for a specific pet.
+3. **View today's schedule** — See a sorted, conflict-checked daily plan showing all tasks across all pets.
+
+I designed four classes to support these actions:
+- **Task** (dataclass): Represents a single care activity. Holds description, scheduled time, duration, priority level, frequency (once/daily/weekly), completion status, associated pet name, and date. Responsible for marking itself complete.
+- **Pet** (dataclass): Stores pet details (name, species, age) and maintains a list of tasks. Responsible for adding, removing, and retrieving its own tasks.
+- **Owner**: Represents the pet owner. Manages a list of pets and provides access to all tasks across all pets. Acts as the central data holder.
+- **Scheduler**: The "brain" of the system. Takes an Owner reference and provides algorithmic logic — sorting tasks by time, filtering by status or pet, detecting scheduling conflicts, handling recurring task generation, and producing a daily schedule.
 
 **b. Design changes**
 
