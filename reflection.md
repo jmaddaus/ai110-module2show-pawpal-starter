@@ -31,8 +31,9 @@ I designed four classes to support these actions:
 
 **b. Tradeoffs**
 
-- Describe one tradeoff your scheduler makes.
-- Why is that tradeoff reasonable for this scenario?
+One key tradeoff the scheduler makes is that conflict detection only checks for **exact time matches** rather than detecting overlapping durations. For example, if a 30-minute walk starts at 07:30 and a 10-minute feeding also starts at 07:30, the scheduler flags a conflict. However, if the walk is at 07:30 (30 min) and feeding is at 07:45, the scheduler does not flag them even though they overlap in practice.
+
+This tradeoff is reasonable for a pet care scenario because most pet owners think in terms of "what time does this start?" rather than calculating overlapping time windows. The simplicity makes the conflict warnings easy to understand and act on. A duration-aware overlap algorithm would add complexity that isn't necessary for typical pet care scheduling where tasks are generally spaced out through the day.
 
 ---
 

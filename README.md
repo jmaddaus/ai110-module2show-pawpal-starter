@@ -22,6 +22,15 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Smarter Scheduling
+
+PawPal+ includes several algorithmic features that make scheduling intelligent:
+
+- **Sort by time**: Tasks are automatically sorted in chronological order using Python's `sorted()` with a lambda key on HH:MM time strings, so the daily schedule always reads top-to-bottom.
+- **Filter by pet or status**: View tasks for a specific pet or see only pending/completed tasks to focus on what matters.
+- **Conflict detection**: The scheduler scans all tasks and warns when two or more are scheduled at the exact same time on the same day, helping owners avoid double-booking.
+- **Recurring tasks**: Daily and weekly tasks automatically generate a new occurrence for the next date when marked complete, using Python's `timedelta` for accurate date arithmetic.
+
 ## Getting started
 
 ### Setup
