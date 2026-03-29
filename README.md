@@ -31,6 +31,28 @@ PawPal+ includes several algorithmic features that make scheduling intelligent:
 - **Conflict detection**: The scheduler scans all tasks and warns when two or more are scheduled at the exact same time on the same day, helping owners avoid double-booking.
 - **Recurring tasks**: Daily and weekly tasks automatically generate a new occurrence for the next date when marked complete, using Python's `timedelta` for accurate date arithmetic.
 
+## Testing PawPal+
+
+Run the test suite with:
+
+```bash
+python -m pytest -v
+```
+
+The test suite covers 12 tests across these areas:
+
+- **Task completion**: Verifies `mark_complete()` changes task status
+- **Task addition**: Confirms adding tasks increases a pet's task count
+- **Sorting correctness**: Tasks are returned in chronological order by time
+- **Daily recurrence**: Completing a daily task creates a new one for the next day
+- **Weekly recurrence**: Completing a weekly task creates a new one 7 days later
+- **One-time tasks**: Non-recurring tasks do not generate new instances
+- **Conflict detection**: Same-time tasks are flagged; different-time tasks are not
+- **Filtering**: Tasks can be filtered by pet name and by completion status
+- **Edge cases**: Empty pets and empty owners are handled gracefully
+
+**Confidence Level**: ⭐⭐⭐⭐ (4/5) — All happy paths and key edge cases are covered. Additional testing for overlapping time windows and multi-day scheduling would increase confidence further.
+
 ## Getting started
 
 ### Setup
