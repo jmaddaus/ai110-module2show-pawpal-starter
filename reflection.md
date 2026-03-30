@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # PawPal+ Project Reflection
 
 ## 1. System Design
@@ -5,15 +7,17 @@
 **a. Initial design**
 
 Three core actions a user should be able to perform:
-1. **Add a pet** — Register a new pet with basic info (name, species, age) so the system knows who to schedule care for.
-2. **Schedule a task** — Create care tasks (walks, feedings, medications) with a time, duration, priority, and optional recurrence for a specific pet.
-3. **View today's schedule** — See a sorted, conflict-checked daily plan showing all tasks across all pets.
+
+1. **Add a pet** - Register a new pet with basic info (name, species, age) so the system knows who to schedule care for.
+2. **Schedule a task** - Create care tasks (walks, feedings, medications) with a time, duration, priority, and optional recurrence for a specific pet.
+3. **View today's schedule** - See a sorted, conflict-checked daily plan showing all tasks across all pets.
 
 I designed four classes to support these actions:
+
 - **Task** (dataclass): Represents a single care activity. Holds description, scheduled time, duration, priority level, frequency (once/daily/weekly), completion status, associated pet name, and date. Responsible for marking itself complete.
 - **Pet** (dataclass): Stores pet details (name, species, age) and maintains a list of tasks. Responsible for adding, removing, and retrieving its own tasks.
 - **Owner**: Represents the pet owner. Manages a list of pets and provides access to all tasks across all pets. Acts as the central data holder.
-- **Scheduler**: The "brain" of the system. Takes an Owner reference and provides algorithmic logic — sorting tasks by time, filtering by status or pet, detecting scheduling conflicts, handling recurring task generation, and producing a daily schedule.
+- **Scheduler**: The "brain" of the system. Takes an Owner reference and provides algorithmic logic sorting tasks by time, filtering by status or pet, detecting scheduling conflicts, handling recurring task generation, and producing a daily schedule.
 
 **b. Design changes**
 
@@ -26,11 +30,12 @@ Yes, the design changed during implementation. The most significant change was a
 **a. Constraints and priorities**
 
 The scheduler considers three main constraints:
+
 - **Time**: Tasks are sorted by their HH:MM start time so the daily schedule reads chronologically. This is the primary organizing principle.
 - **Priority**: Each task has a priority level (low, medium, high) displayed prominently in the UI so owners can see at a glance what matters most.
 - **Frequency**: Tasks can be one-time, daily, or weekly. The scheduler automatically handles recurrence when tasks are completed, so owners don't have to manually re-enter routine care activities.
 
-I decided time was the most important constraint because a daily schedule only makes sense if it's ordered chronologically — that's how a pet owner actually moves through their day. Priority is secondary information that helps the owner decide what to tackle first if they're short on time.
+I decided time was the most important constraint because a daily schedule only makes sense if it's ordered chronologically as that's how a pet owner actually moves through their day. Priority is secondary information that helps the owner decide what to tackle first if they're short on time.
 
 **b. Tradeoffs**
 
@@ -45,12 +50,13 @@ This tradeoff is reasonable for a pet care scenario because most pet owners thin
 **a. How you used AI**
 
 I used AI (Claude Code) throughout this project in several ways:
+
 - **Design brainstorming**: I described the pet care scenario and asked for help drafting a Mermaid.js UML class diagram showing the four main classes and their relationships. This gave me a visual blueprint before writing any code.
 - **Scaffolding**: I used AI to generate the initial class skeletons with proper dataclass decorators and type hints, then fleshed out the logic incrementally.
 - **Implementation**: For algorithmic features like recurring task generation with `timedelta` and conflict detection, I described what I wanted and reviewed the generated code to make sure it handled edge cases.
 - **Testing**: I asked AI to generate pytest tests covering happy paths and edge cases, then reviewed each test to ensure it was testing meaningful behavior.
 
-The most helpful prompts were specific and scoped — like "implement a method that detects tasks at the same time and returns warning strings" rather than vague requests. Providing context about what already existed (the Owner/Pet/Task structure) helped get accurate suggestions.
+The most helpful prompts were specific and scoped like "implement a method that detects tasks at the same time and returns warning strings" rather than vague requests. Providing context about what already existed (the Owner/Pet/Task structure) helped get accurate suggestions.
 
 **b. Judgment and verification**
 
@@ -65,6 +71,7 @@ I verified this by running the Streamlit app and confirming that adding pets and
 **a. What you tested**
 
 I tested 12 behaviors across five categories:
+
 - **Core functionality**: Task completion status changes, task count increases when adding tasks to a pet.
 - **Sorting**: Tasks come back in chronological order regardless of insertion order.
 - **Recurrence**: Daily tasks generate a next-day occurrence, weekly tasks generate a next-week occurrence, and one-time tasks do not recur.
@@ -78,6 +85,7 @@ These tests were important because they verify the core algorithmic "brain" of t
 I'm fairly confident the scheduler works correctly for its intended use case — **4 out of 5 stars**. All happy paths and important edge cases pass.
 
 If I had more time, I would test:
+
 - **Overlapping time windows** (duration-aware conflicts)
 - **Tasks spanning midnight** (e.g., a late-night task that runs past 00:00)
 - **Large datasets** (performance with 100+ tasks across many pets)
@@ -93,8 +101,8 @@ I'm most satisfied with the "CLI-first" workflow. Building and verifying all the
 
 **b. What you would improve**
 
-If I had another iteration, I would redesign conflict detection to be duration-aware — checking whether tasks actually overlap in their time windows rather than just matching start times. I would also add data persistence (saving to JSON) so that pets and tasks survive between app restarts, and add the ability to edit or reschedule existing tasks rather than only adding new ones.
+If I had another iteration, I would redesign conflict detection to be duration-aware: checking whether tasks actually overlap in their time windows rather than just matching start times. I would also add data persistence (saving to JSON) so that pets and tasks survive between app restarts, and add the ability to edit or reschedule existing tasks rather than only adding new ones.
 
 **c. Key takeaway**
 
-The most important thing I learned is that AI works best as an accelerator when you already have a clear design in mind. Starting with the UML diagram meant I could give AI specific, well-scoped instructions rather than vague "build me an app" requests. The human role as architect — deciding what classes exist, how they relate, and what tradeoffs to make — is what keeps the system coherent. AI excels at generating boilerplate and suggesting implementations, but the design judgment has to come from the developer.
+The most important thing I learned is that AI works best as an accelerator when you already have a clear design in mind. Starting with the UML diagram meant I could give AI specific, well-scoped instructions rather than vague "build me an app" requests. The human role as architect is what keeps the system coherent. AI excels at generating boilerplate and suggesting implementations, but the design judgment has to come from the developer.

@@ -55,7 +55,8 @@ def test_daily_recurrence():
     today = str(date.today())
     tomorrow = str(date.today() + timedelta(days=1))
 
-    pet.add_task(Task("Morning walk", "07:30", 20, "high", frequency="daily", date=today))
+    pet.add_task(Task("Morning walk", "07:30", 20,
+                 "high", frequency="daily", date=today))
 
     scheduler = Scheduler(owner)
     original_task = pet.get_tasks()[0]
@@ -79,7 +80,8 @@ def test_weekly_recurrence():
     today = str(date.today())
     next_week = str(date.today() + timedelta(weeks=1))
 
-    pet.add_task(Task("Flea medication", "09:00", 5, "medium", frequency="weekly", date=today))
+    pet.add_task(Task("Flea medication", "09:00", 5,
+                 "medium", frequency="weekly", date=today))
 
     scheduler = Scheduler(owner)
     scheduler.mark_task_complete(pet.get_tasks()[0])

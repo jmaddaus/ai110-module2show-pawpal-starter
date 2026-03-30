@@ -1,6 +1,8 @@
+<!-- @format -->
+
 # PawPal+ (Module 2 Project)
 
-**PawPal+** is a smart pet care management system built with Python and Streamlit. It helps pet owners plan daily care tasks — walks, feedings, medications, and appointments — while using algorithmic logic to organize and prioritize schedules.
+**PawPal+** is a smart pet care management system built with Python and Streamlit. It helps pet owners plan daily care tasks such as walks, feedings, medications, and appointments while using algorithmic logic to organize and prioritize schedules.
 
 ## Scenario
 
@@ -36,7 +38,7 @@ The system is built with four core classes (see `uml_final.md` for the full Merm
 - **Task** (dataclass): A single care activity with time, priority, frequency, and completion tracking.
 - **Pet** (dataclass): Holds pet info and manages its own task list.
 - **Owner**: Manages multiple pets and aggregates all tasks.
-- **Scheduler**: The brain — sorts, filters, detects conflicts, handles recurrence, and produces daily schedules.
+- **Scheduler**: The brain sorts, filters, detects conflicts, handles recurrence, and produces daily schedules.
 
 ## Testing PawPal+
 
@@ -58,7 +60,7 @@ The test suite covers 12 tests across these areas:
 - **Filtering**: Tasks can be filtered by pet name and by completion status
 - **Edge cases**: Empty pets and empty owners are handled gracefully
 
-**Confidence Level**: ⭐⭐⭐⭐ (4/5) — All happy paths and key edge cases are covered. Additional testing for overlapping time windows and multi-day scheduling would increase confidence further.
+**Confidence Level**: (4/5) All happy paths and key edge cases are covered. Additional testing for overlapping time windows and multi-day scheduling would increase confidence further.
 
 ## Getting Started
 

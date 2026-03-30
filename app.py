@@ -5,7 +5,8 @@ from datetime import date
 st.set_page_config(page_title="PawPal+", page_icon="🐾", layout="centered")
 
 st.title("🐾 PawPal+")
-st.markdown("A smart pet care management system that helps owners keep their furry friends happy and healthy.")
+st.markdown(
+    "A smart pet care management system that helps owners keep their furry friends happy and healthy.")
 
 # --- Session State Initialization ---
 if "owner" not in st.session_state:
@@ -21,7 +22,8 @@ with st.sidebar:
     st.subheader("Add a Pet")
     with st.form("add_pet_form", clear_on_submit=True):
         pet_name = st.text_input("Pet name")
-        species = st.selectbox("Species", ["dog", "cat", "bird", "fish", "other"])
+        species = st.selectbox(
+            "Species", ["dog", "cat", "bird", "fish", "other"])
         age = st.number_input("Age", min_value=0, max_value=30, value=1)
         add_pet = st.form_submit_button("Add Pet")
         if add_pet and pet_name:
@@ -34,7 +36,8 @@ with st.sidebar:
     if owner.pets:
         st.subheader("Your Pets")
         for pet in owner.pets:
-            st.write(f"**{pet.name}** ({pet.species}, age {pet.age}) — {len(pet.tasks)} tasks")
+            st.write(
+                f"**{pet.name}** ({pet.species}, age {pet.age}) - {len(pet.tasks)} tasks")
 
 # --- Main Area: Task Management ---
 st.subheader("Schedule a Task")
@@ -49,8 +52,10 @@ else:
             task_time = st.text_input("Time (HH:MM)", value="08:00")
             task_pet = st.selectbox("Pet", [p.name for p in owner.pets])
         with col2:
-            duration = st.number_input("Duration (minutes)", min_value=1, max_value=240, value=20)
-            priority = st.selectbox("Priority", ["low", "medium", "high"], index=2)
+            duration = st.number_input(
+                "Duration (minutes)", min_value=1, max_value=240, value=20)
+            priority = st.selectbox(
+                "Priority", ["low", "medium", "high"], index=2)
             frequency = st.selectbox("Frequency", ["once", "daily", "weekly"])
 
         add_task = st.form_submit_button("Add Task")
@@ -66,7 +71,8 @@ else:
                     date=str(date.today()),
                 )
                 pet.add_task(new_task)
-                st.success(f"Added '{task_desc}' for {task_pet} at {task_time}!")
+                st.success(
+                    f"Added '{task_desc}' for {task_pet} at {task_time}!")
 
     # --- Schedule Display ---
     st.divider()
@@ -102,7 +108,7 @@ else:
                 scheduler.mark_task_complete(task)
                 st.success(f"Marked '{task.description}' complete!")
                 if task.frequency in ("daily", "weekly"):
-                    st.info(f"Recurring task — next occurrence auto-scheduled.")
+                    st.info(f"Recurring task: next occurrence auto-scheduled.")
                 st.rerun()
     else:
         st.info("No tasks scheduled for today. Add some above!")
@@ -113,9 +119,11 @@ else:
         st.subheader("Filter Tasks")
         col1, col2 = st.columns(2)
         with col1:
-            filter_pet = st.selectbox("Filter by pet", ["All"] + [p.name for p in owner.pets])
+            filter_pet = st.selectbox(
+                "Filter by pet", ["All"] + [p.name for p in owner.pets])
         with col2:
-            filter_status = st.selectbox("Filter by status", ["Pending", "Completed", "All"])
+            filter_status = st.selectbox(
+                "Filter by status", ["Pending", "Completed", "All"])
 
         if filter_pet != "All":
             filtered = scheduler.filter_by_pet(filter_pet)

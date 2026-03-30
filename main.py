@@ -1,4 +1,4 @@
-"""PawPal+ CLI Demo — Verifies backend logic in the terminal."""
+"""PawPal+ CLI Demo Verifies backend logic in the terminal."""
 
 from pawpal_system import Task, Pet, Owner, Scheduler
 from datetime import date
@@ -18,25 +18,32 @@ def main():
     # Add tasks (out of order to test sorting)
     today = str(date.today())
 
-    mochi.add_task(Task("Evening walk", "17:00", 30, "high", "daily", date=today))
-    mochi.add_task(Task("Morning walk", "07:30", 20, "high", "daily", date=today))
-    mochi.add_task(Task("Flea medication", "09:00", 5, "medium", "weekly", date=today))
+    mochi.add_task(Task("Evening walk", "17:00",
+                   30, "high", "daily", date=today))
+    mochi.add_task(Task("Morning walk", "07:30",
+                   20, "high", "daily", date=today))
+    mochi.add_task(Task("Flea medication", "09:00",
+                   5, "medium", "weekly", date=today))
 
-    whiskers.add_task(Task("Breakfast feeding", "07:30", 10, "high", "daily", date=today))
-    whiskers.add_task(Task("Litter box cleaning", "12:00", 10, "medium", "daily", date=today))
-    whiskers.add_task(Task("Vet appointment", "14:00", 60, "high", "once", date=today))
+    whiskers.add_task(Task("Breakfast feeding", "07:30",
+                      10, "high", "daily", date=today))
+    whiskers.add_task(Task("Litter box cleaning", "12:00",
+                      10, "medium", "daily", date=today))
+    whiskers.add_task(Task("Vet appointment", "14:00",
+                      60, "high", "once", date=today))
 
     # Create scheduler
     scheduler = Scheduler(owner)
 
     # Print today's schedule (sorted by time)
     print("=" * 55)
-    print(f"  Today's Schedule — {today}")
+    print(f"  Today's Schedule - {today}")
     print("=" * 55)
     schedule = scheduler.get_todays_schedule()
     for task in schedule:
         status = "Done" if task.completed else "Pending"
-        print(f"  {task.time}  [{task.priority.upper():^6}]  {task.description:<25} ({task.pet_name}) - {status}")
+        print(
+            f"  {task.time}  [{task.priority.upper():^6}]  {task.description:<25} ({task.pet_name}) - {status}")
     print()
 
     # Check for conflicts
@@ -61,9 +68,11 @@ def main():
 
     # Show that a new recurring task was created
     mochi_tasks = mochi.get_tasks()
-    print(f"  Mochi now has {len(mochi_tasks)} tasks (new recurring task added)")
+    print(
+        f"  Mochi now has {len(mochi_tasks)} tasks (new recurring task added)")
     for task in mochi_tasks:
-        print(f"    {task.date} {task.time} - {task.description} (completed: {task.completed})")
+        print(
+            f"    {task.date} {task.time} - {task.description} (completed: {task.completed})")
     print()
 
     # Filter by status

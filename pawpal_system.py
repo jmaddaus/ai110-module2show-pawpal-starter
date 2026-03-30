@@ -1,4 +1,4 @@
-"""PawPal+ System — Core logic layer for pet care scheduling."""
+"""PawPal+ System Core logic layer for pet care scheduling."""
 
 from dataclasses import dataclass, field
 from datetime import date, timedelta
@@ -80,7 +80,7 @@ class Owner:
 
 
 class Scheduler:
-    """The brain — retrieves, organizes, and manages tasks across pets."""
+    """The brain retrieves, organizes, and manages tasks across pets."""
 
     def __init__(self, owner: Owner):
         """Initialize scheduler with an owner reference."""
@@ -147,5 +147,6 @@ class Scheduler:
     def get_todays_schedule(self) -> list:
         """Return today's incomplete tasks sorted by time."""
         today = str(date.today())
-        tasks = [t for t in self.get_all_tasks() if t.date == today and not t.completed]
+        tasks = [t for t in self.get_all_tasks() if t.date ==
+                 today and not t.completed]
         return self.sort_by_time(tasks)
